@@ -1,0 +1,1 @@
+Download database [**imdb-large.sqlite3.db**](https://learndotresources.s3.amazonaws.com/workshop/54c55ddb59650e0c0031a83e/imdb-large.sqlite3.db)
