@@ -1,7 +1,7 @@
 /*********** Sobre `exerciseUtils` ********
  *
  * `excersiceUtils` es una Variable que viene de un archivo en este repo.
- * 
+ *
  * El archivo `utils.js` está en este nivel y crea un `promisifiedReadFile`.
  *
  * Es importante que te fijes en él a la hora de completar este Workshop.
@@ -15,12 +15,12 @@
 const Promise = require("bluebird"),
   exerciseUtils = require("./utils");
 
-  const readFile = exerciseUtils.readFile,
+const readFile = exerciseUtils.readFile,
   promisifiedReadFile = exerciseUtils.promisifiedReadFile,
   blue = exerciseUtils.blue,
   magenta = exerciseUtils.magenta;
 
-  const args = process.argv.slice(2).map(function (st) {
+const args = process.argv.slice(2).map(function (st) {
   return st.toUpperCase();
 });
 
@@ -47,35 +47,46 @@ function problemaA() {
    */
 
   // Versión Callback
-  readFile("poema-uno/estrofa-01.txt", function (err, estrofa) {
-    console.log("-- A. callback version --");
-    blue(estrofa);
-  });
+  // readFile("poema-uno/estrofa-01.txt", function (err, estrofa) {
+  //   console.log("-- A. callback version --");
+  //   blue(estrofa);
+  // });
 
   // Versión Promesas
-  // [Escribí tu código acá]
+  promisifiedReadFile("poema-uno/estrofa-01.txt")
+  .then((res) => {
+    console.log("-- A. promisified version --");
+    blue(res);
+  });
 }
 
 function problemaB() {
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * *
    *
    * B. Logueá, en versión Promesas, el poema-uno, estrofa-dos y estrofa-tres, en cualquier orden. Ignorá errores.
-   *  
+   *
    *
    */
 
   // Versión Callback
-  readFile("poema-uno/estrofa-02.txt", function (err, estrofa2) {
-    console.log("-- B. callback version (estrofa dos) --");
-    blue(estrofa2);
-  });
-  readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
-    console.log("-- B. callback version (estrofa tres) --");
-    blue(estrofa3);
-  });
+  // readFile("poema-uno/estrofa-02.txt", function (err, estrofa2) {
+  //   console.log("-- B. callback version (estrofa dos) --");
+  //   blue(estrofa2);
+  // });
+  // readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
+  //   console.log("-- B. callback version (estrofa tres) --");
+  //   blue(estrofa3);
+  // });
 
   // Versión Promesas
-  // [Escribí tu código acá]
+  promisifiedReadFile("poema-uno/estrofa-02.txt").then((res) => {
+    console.log("-- B. promisified version (estrofa dos) --");
+    blue(res);
+  });
+  promisifiedReadFile("poema-uno/estrofa-03.txt").then((res) => {
+    console.log("-- B. promisified version (estrofa tres) --");
+    blue(res);
+  });
 }
 
 function problemaC() {
@@ -83,26 +94,35 @@ function problemaC() {
    *
    * C. Leé y logueá, en versión Promesas, el poema-uno, estrofa-dos. Luego, leé y mostrá por consola
    *    estrofa-tres. Cuando ambas hayan terminado, logueá 'done'. Ignorá errores.
-   * 
-   * *Tip*: Los specs esperarán la palabra exacta 'done' para pasar el test. 
+   *
+   * *Tip*: Los specs esperarán la palabra exacta 'done' para pasar el test.
    *    Prestá atención a las mayúsculas y minúsculas porque es case sensitive.
    *
    */
 
   // Versión Callback
-  readFile("poema-uno/estrofa-02.txt", function (err, estrofa2) {
-    console.log("-- C. callback version (estrofa dos) --");
-    blue(estrofa2);
-    readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
-      console.log("-- C. callback version (estrofa tres) --");
-      blue(estrofa3);
-      console.log("-- C. callback version done --");
-    });
-  });
+  // readFile("poema-uno/estrofa-02.txt", function (err, estrofa2) {
+  //   console.log("-- C. callback version (estrofa dos) --");
+  //   blue(estrofa2);
+  //   readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
+  //     console.log("-- C. callback version (estrofa tres) --");
+  //     blue(estrofa3);
+  //     console.log("-- C. callback version done --");
+  //   });
+  // });
 
   // Versión Promesas
-  // [Escribí tu código acá]
-  // *Tip*: No hace falta anidar los `.then`.
+  promisifiedReadFile("poema-uno/estrofa-02.txt")
+    .then((res) => {
+      console.log("-- C. promisified version (estrofa dos) --");
+      blue(res);
+      return promisifiedReadFile("poema-uno/estrofa-03.txt");
+    })
+    .then((res) => {
+      console.log("-- C. promisified version (estrofa tres) --");
+      blue(res);
+      console.log("-- C. promisified version done --");
+    });
 }
 
 function problemaD() {
@@ -113,14 +133,23 @@ function problemaD() {
    */
 
   // Versión Callback
-  readFile("poema-uno/wrong-file-name.txt", function (err, estrofa4) {
-    console.log("-- D. callback version (estrofa cuatro) --");
-    if (err) magenta(err);
-    else blue(estrofa4);
-  });
+  // readFile("poema-uno/wrong-file-name.txt", function (err, estrofa4) {
+  //   console.log("-- D. callback version (estrofa cuatro) --");
+  //   if (err) magenta(err);
+  //   else blue(estrofa4);
+  // });
 
   // Versión Promesas
-  // [Escribí tu código acá]
+  promisifiedReadFile("poema-uno/wrong-file-name.txt")
+    .then((res) => {
+      console.log("-- D. promisified version (estrofa cuatro) --");
+      blue(res);
+      console.log("-- D. promisified version done --");
+    })
+    .catch((err) => {
+      magenta(err);
+      console.log("-- D. promisified version done --");
+    });
 }
 
 function problemaE() {
@@ -132,19 +161,33 @@ function problemaE() {
    */
 
   // Versión Callback
-  readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
-    console.log("-- E. callback version (estrofa tres) --");
-    if (err) return magenta(err);
-    blue(estrofa3);
-    readFile("poema-uno/wrong-file-name.txt", function (err2, estrofa4) {
-      console.log("-- E. callback version (estrofa cuatro) --");
-      if (err2) return magenta(err2);
-      blue(estrofa4);
-    });
-  });
+  // readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
+  //   console.log("-- E. callback version (estrofa tres) --");
+  //   if (err) return magenta(err);
+  //   blue(estrofa3);
+  //   readFile("poema-uno/wrong-file-name.txt", function (err2, estrofa4) {
+  //     console.log("-- E. callback version (estrofa cuatro) --");
+  //     if (err2) return magenta(err2);
+  //     blue(estrofa4);
+  //   });
+  // });
 
   // Versión Promesas
-  // [Escribí tu código acá]
+  promisifiedReadFile("poema-uno/estrofa-03.txt")
+    .then((res) => {
+      console.log("-- E. promisified version (estrofa tres) --");
+      blue(res);
+      return promisifiedReadFile("poema-uno/estrofa-04.txt");
+    })
+    .then((res) => {
+      console.log("-- E. promisified version (estrofa cuatro) --");
+      blue(res);
+      console.log("-- E. promisified version done --");
+    })
+    .catch((err) => {
+      magenta(err);
+      console.log("-- E. promisified version done --");
+    });
 }
 
 function problemaF() {
@@ -157,22 +200,36 @@ function problemaF() {
    */
 
   // Versión Callback
-  readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
-    console.log("-- F. callback version (estrofa tres) --");
-    if (err) {
-      magenta(err);
-      console.log("-- F. callback version done --");
-      return;
-    }
-    blue(estrofa3);
-    readFile("poema-uno/wrong-file-name.txt", function (err2, estrofa4) {
-      console.log("-- F. callback version (estrofa cuatro) --");
-      if (err2) magenta(err2);
-      else blue(estrofa4);
-      console.log("-- F. callback version done --");
-    });
-  });
+  // readFile("poema-uno/estrofa-03.txt", function (err, estrofa3) {
+  //   console.log("-- F. callback version (estrofa tres) --");
+  //   if (err) {
+  //     magenta(err);
+  //     console.log("-- F. callback version done --");
+  //     return;
+  //   }
+  //   blue(estrofa3);
+  //   readFile("poema-uno/wrong-file-name.txt", function (err2, estrofa4) {
+  //     console.log("-- F. callback version (estrofa cuatro) --");
+  //     if (err2) magenta(err2);
+  //     else blue(estrofa4);
+  //     console.log("-- F. callback version done --");
+  //   });
+  // });
 
   // Versión Promesas
-  // [Escribí tu código acá]
+  promisifiedReadFile("poema-uno/estrofa-03.txt")
+    .then((res) => {
+      console.log("-- F. promisified version (estrofa tres) --");
+      blue(res);
+      return promisifiedReadFile("poema-uno/estrofa-04.txt");
+    })
+    .then((res) => {
+      console.log("-- F. promisified version (estrofa cuatro) --");
+      blue(res);
+      console.log("-- F. promisified version done --");
+    })
+    .catch((err) => {
+      magenta(err);
+      console.log("-- F. promisified version done --");
+    });
 }
