@@ -47,7 +47,7 @@ tweetsRouter.post("/", (req, res, next) => {
   let userId;
   const queryBaseUser = "INSERT INTO users (name) VALUES ($1) RETURNING id";
   client.query(queryBaseUser, [req.body.name], (err, result) => {
-    if (err) return next(err); // pasa el error a Express
+    if (err) return next(err);
     userId = result.rows[0].id;
     const queryBaseTweet =
       "INSERT INTO tweets (user_id, content, imgurl) VALUES ($1, $2, $3) RETURNING id";
@@ -55,7 +55,7 @@ tweetsRouter.post("/", (req, res, next) => {
       queryBaseTweet,
       [userId, req.body.content, req.body.imgurl],
       (err, result) => {
-        if (err) return next(err); // pasa el error a Express
+        if (err) return next(err);
         const baseQuery =
           "SELECT *, tweets.id as tid FROM tweets INNER JOIN users ON users.id=tweets.user_id WHERE tweets.id=$1";
         client.query(baseQuery, [result.rows[0].id], (err, result) => {
