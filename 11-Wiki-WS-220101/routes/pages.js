@@ -27,8 +27,9 @@ pagesRouter.get("/:urlTitle", (req, res, next) => {
 
 pagesRouter.put("/:urlTitle", (req, res, next) => {
   const urlTitle = req.params.urlTitle;
-  const { title, content } = req.body;
-  Pages.update({ title, content }, { where: { urlTitle: urlTitle } })
+  console.log(req.body);
+  const { title, content, tags } = req.body;
+  Pages.update({ title, content, tags }, { where: { urlTitle: urlTitle } })
     .then(() => Pages.findOne({ where: { title: title } }))
     .then((page) => res.status(200).send(page))
     .catch((err) => {
@@ -60,6 +61,32 @@ pagesRouter.delete("/:id", (req, res, next) => {
     .then((page) => (deletedPage = page))
     .then(() => Pages.destroy({ where: { id: id } }))
     .then(() => res.status(204).send(deletedPage))
+    .catch((err) => {
+      console.error("ERROR: ", err);
+      next();
+    });
+});
+
+pagesRouter.get("/search/:tag", (req, res, next) => {
+  Pages.findByTag(req.params.tag)
+    .then((pages) => res.send(pages))
+    .catch((err) => {
+      console.error("ERROR: ", err);
+      next();
+    });
+});
+
+pagesRouter.get("/:urlTitle/similar", (req, res, next) => {
+  Pages.findOne({
+    where: {
+      urlTitle: req.params.urlTitle,
+    },
+  })
+    .then((page) => {
+      if (!page) next("No se encontro tu pagina");
+      return page.findSimilar();
+    })
+    .then((similarPages) => res.send(similarPages))
     .catch((err) => {
       console.error("ERROR: ", err);
       next();

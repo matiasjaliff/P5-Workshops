@@ -1,7 +1,30 @@
 const Sequelize = require("sequelize");
+const { marked } = require("marked");
 const db = require("../db");
 
-class Pages extends Sequelize.Model {}
+class Pages extends Sequelize.Model {
+  static findByTag = function (tag) {
+    return Pages.findAll({
+      where: {
+        tags: {
+          [Sequelize.Op.overlap]: [tag],
+        },
+      },
+    });
+  };
+  findSimilar() {
+    return Pages.findAll({
+      where: {
+        id: {
+          [Sequelize.Op.not]: this.id,
+        },
+        tags: {
+          [Sequelize.Op.overlap]: this.tags,
+        },
+      },
+    });
+  }
+}
 Pages.init(
   {
     title: {
@@ -16,10 +39,23 @@ Pages.init(
       type: Sequelize.TEXT,
       allowNull: false,
     },
+    tags: {
+      type: Sequelize.ARRAY(Sequelize.STRING),
+      defaultValue: [],
+      set(tags) {
+        this.setDataValue("tags", makeTags(tags));
+      },
+    },
     route: {
       type: Sequelize.VIRTUAL,
       get() {
         return `/wiki/${this.urlTitle}`;
+      },
+    },
+    renderedContent: {
+      type: Sequelize.VIRTUAL,
+      get() {
+        return marked(this.getDataValue("content"));
       },
     },
   },
@@ -39,5 +75,13 @@ Pages.beforeValidate("createUrlTitle", (pages, options) => {
   };
   pages.urlTitle = generateUrlTitle(title);
 });
+
+function makeTags(tags) {
+  tags = tags || [];
+  if (typeof tags === "string") {
+    tags = tags.split(",").map((tag) => tag.trim().toLowerCase());
+  }
+  return tags;
+}
 
 module.exports = Pages;
