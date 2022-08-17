@@ -1,0 +1,32 @@
+#fotos {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.titleFotos {
+  @media screen and (max-width: 768px) {
+    font-size: 2em;
+    margin-left: 20px;
+  }
+  font-size: 3em;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin-left: 50px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+  width: 90%;
+  align-self: center;
+  img {
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+    width: calc(100% / 3);
+  }
+}

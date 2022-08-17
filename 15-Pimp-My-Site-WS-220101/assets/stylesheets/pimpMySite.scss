@@ -1,10 +1,13 @@
 // Esta es la base con la que se parte en el workshop.
 // De esta manera si importa una fuente desde Google Fonts.
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
-
-$bg-color: #ede7f6;
-$font-color: #9575cd;
-$navbar-height: 70px;
+@import "./colors.scss";
+@import "./navbar.scss";
+@import "./home.scss";
+@import "./gallery.scss";
+@import "./footer.scss";
+@import "./form.scss";
+@import "./address.scss";
 
 * {
   font-family: "Montserrat", sans-serif;
@@ -23,117 +26,4 @@ body {
 
 html {
   scroll-behavior: smooth;
-}
-
-// TU CODIGO SCSS
-
-//// NAVBAR
-
-.navbar {
-  // Layout
-  height: $navbar-height;
-  width: 100%;
-  background-color: $bg-color;
-  position: fixed;
-  z-index: 1;
-  // Display
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  // Format
-  box-shadow: 0px -5px 10px 0px;
-}
-
-.navbarSection {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: large;
-  font-weight: bold;
-}
-
-//// HOME
-
-.home {
-  padding-top: $navbar-height;
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-}
-
-.homeImage {
-  width: 50%;
-}
-
-.title {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 0 auto;
-  text-transform: uppercase;
-}
-
-//// GALERY
-
-#fotos {
-  padding: 50px 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.titleFotos {
-  font-size: 3em;
-  text-transform: uppercase;
-  font-weight: 300;
-  margin-left: 50px;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 90%;
-  align-self: center;
-  img {
-    width: calc(100%/3);
-  }
-}
-
-//// FOOTER
-
-.footer {
-  height: 90px;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
-  img {
-    max-width: 200px;
-  }
-  box-shadow: 0px 5px 10px 0px
-}
-
-.footerName {
-  text-transform: uppercase;
-}
-
-// PUNTOS EXTRA
-
-.form {
-}
-
-.input {
-}
-
-.submitButton {
-}
-
-.address {
-}
-
-.addressTitle {
 }

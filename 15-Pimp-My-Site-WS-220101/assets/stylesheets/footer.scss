@@ -1,0 +1,18 @@
+.footer {
+  height: 90px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  img {
+    max-width: 200px;
+  }
+  box-shadow: 0px 5px 10px 0px;
+  margin-top: 80px;
+}
+
+.footerName {
+  text-transform: uppercase;
+}

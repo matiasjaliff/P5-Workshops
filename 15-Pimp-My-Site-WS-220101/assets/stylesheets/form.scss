@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 100px 0;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+  width: 40%;
+  margin: 0 auto;
+}
+
+.input {
+  height: 30px;
+  margin-bottom: 20px;
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px $font-color;
+  font-size: 15px;
+  outline: none;
+}
+
+.input:focus {
+  border-bottom: solid 2px $font-color;
+}
+
+.submitButton {
+  width: 110px;
+  height: 40px;
+  background-color: $font-color;
+  color: white;
+  border-radius: 5px;
+  text-transform: uppercase;
+  @media screen and (max-width: 768px) {
+    align-self: flex-end;
+  }
+}
