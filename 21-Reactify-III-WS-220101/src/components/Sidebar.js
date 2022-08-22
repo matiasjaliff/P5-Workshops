@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 
-const Sidebar = ({ playlists, artists, handlePlaylistSelect, handleArtistSelect }) => {
-
+const Sidebar = ({ playlists, artists }) => {
   return (
     <aside className="menu column is-one-quarter">
-      <p className="menu-label">Playlists</p>
+      <div className="is-flex is-justify-content-space-between">
+        <p className="menu-label">Playlists</p>
+        <Link to="/new-playlist">
+          <button className="button is-success is-small">NEW</button>
+        </Link>
+      </div>
       <ul className="menu-list">
         {playlists.map((playlist, i) => (
           <li key={i}>

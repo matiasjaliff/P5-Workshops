@@ -4,7 +4,7 @@ const Card = ({ data }) => {
       <div className="card-image">
         <figure className="image">
           <img
-            src={data.images[0].url}
+            src={data.images[0] ? data.images[0].url : "https://i.imgur.com/M1wbKOT.jpg"}
             alt="Placeholder image"
           />
         </figure>

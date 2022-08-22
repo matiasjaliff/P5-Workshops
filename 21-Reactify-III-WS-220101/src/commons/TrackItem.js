@@ -1,9 +1,20 @@
 import { millisToMinutesAndSeconds } from "../utils/functions";
 
-const TrackItem = ({ track, i }) => {
+const TrackItem = ({ track, i, addToPlaylist }) => {
   return (
     <tr>
-      <td>{i + 1}</td>
+      {addToPlaylist ? (
+        <td>
+          <button
+            className="button is-success"
+            onClick={() => addToPlaylist(track)}
+          >
+            ➕
+          </button>
+        </td>
+      ) : (
+        <td>{i + 1}</td>
+      )}
       <td>
         <span>{track.name}</span>
         <p className="has-text-grey">{track.artists[0].name}</p>

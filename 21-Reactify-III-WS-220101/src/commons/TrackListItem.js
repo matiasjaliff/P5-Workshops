@@ -1,6 +1,6 @@
 import TrackItem from "./TrackItem";
 
-const TrackListItem = ({ tracks }) => {
+const TrackListItem = ({ tracks, addToPlaylist }) => {
   return (
     <section className="pt-4">
       <table className="table is-hoverable is-fullwidth">
@@ -14,7 +14,12 @@ const TrackListItem = ({ tracks }) => {
         </thead>
         <tbody>
           {tracks.map((track, i) => (
-            <TrackItem track={track} key={i} i={i} />
+            <TrackItem
+              track={track}
+              key={i}
+              i={i}
+              addToPlaylist={addToPlaylist}
+            />
           ))}
         </tbody>
       </table>

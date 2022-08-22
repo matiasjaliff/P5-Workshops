@@ -7,6 +7,7 @@ import axios from "axios";
 import { Navigate, Route, Routes } from "react-router";
 import Grid from "./components/Grid";
 import NotFound from "./commons/NotFound";
+import NewPlaylist from "./components/NewPlaylist";
 
 const App = () => {
   const [playlists, setPlaylists] = useState([]);
@@ -51,13 +52,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<p>¡Bienvenidos a Reactify!</p>} />
           <Route path="404" element={<NotFound />} />
+          <Route path="new-playlist" element={<NewPlaylist />} />
           <Route
             path="collection/:type"
             element={
               <Grid albums={albums} artists={artists} playlists={playlists} />
             }
           />
-          <Route path="single/:type/:id" element={<Content />} />
+          <Route path="single/:type/:id/*" element={<Content />} />
           <Route path="*" element={<Navigate to="404" />} />
         </Routes>
       </div>
