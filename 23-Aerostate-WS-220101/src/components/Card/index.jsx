@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Card, Avatar } from "antd";
 
+import { useSelector, useDispatch } from "react-redux";
+import { addToFavorite } from "../../state/user";
+
 import Favorite from "./Favorite";
 
 import { FaPlaneDeparture } from "react-icons/fa";
@@ -8,13 +11,17 @@ import { FaPlaneArrival } from "react-icons/fa";
 
 import s from "./style.module.scss";
 
-function CardComponent({ flight, addToFavorite }) {
+function CardComponent({ flight }) {
+  const user = useSelector((state) => state.user.value);
+
+  const dispatch = useDispatch();
+
   const { origin, destination, departure, arrival, code } = flight;
   return (
     <Card
       className={s.card}
       title={`Flight #${code}`}
-      extra={<Favorite onClick={() => addToFavorite(flight)} />}
+      extra={<Favorite onClick={() => dispatch(addToFavorite(user, flight))} />}
     >
       <Card.Meta
         className={s.entry}

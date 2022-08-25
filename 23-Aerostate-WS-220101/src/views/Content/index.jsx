@@ -7,14 +7,11 @@ import Sidebar from "../Sidebar";
 import { FaSearch } from "react-icons/fa";
 
 import s from "./style.module.scss";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function Content({
-  user,
-  flights,
-  airports,
-  addToFavorite,
-  removeFromFavorite,
-}) {
+export default function Content() {
+  const flights = useSelector((state) => state.flights.value);
+
   const [filteredFlights, setFilteredFlights] = React.useState([]);
   const [filters, setFilters] = React.useState({ origin: "", destination: "" });
 
@@ -42,11 +39,11 @@ export default function Content({
           <h2>Search between like 10 different places or so!</h2>
         </div>
 
-        <Filters options={airports} onSelect={setFilters} />
+        <Filters onSelect={setFilters} />
 
-        <Grid flights={filteredFlights} addToFavorite={addToFavorite} />
+        <Grid flights={filteredFlights} />
       </section>
-      <Sidebar user={user} removeFromFavorite={removeFromFavorite} />
+      <Sidebar />
     </main>
   );
 }

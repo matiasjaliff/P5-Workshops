@@ -4,7 +4,7 @@ import Card from "../../components/Card";
 
 import s from "./style.module.scss";
 
-export default function Grid({ flights, addToFavorite }) {
+export default function Grid({ flights }) {
   // Si no hay vuelos muestro el loading
   if (!flights.length) {
     return (
@@ -18,7 +18,7 @@ export default function Grid({ flights, addToFavorite }) {
   return (
     <section className={s.grid}>
       {flights.map((flight) => (
-        <Card key={flight.id} flight={flight} addToFavorite={addToFavorite} />
+        <Card key={flight.id} flight={flight} />
       ))}
     </section>
   );

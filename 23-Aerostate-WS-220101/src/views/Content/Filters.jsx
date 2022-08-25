@@ -1,10 +1,13 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
 
 import Autocomplete from "../../components/Autocomplete";
 
 import s from "./style.module.scss";
 
-export default function Filter({ options, onSelect }) {
+export default function Filter({ onSelect }) {
+  const options = useSelector((state) => state.airports.value);
+
   const [origin, setOrigin] = React.useState("");
   const [destination, setDestination] = React.useState("");
 

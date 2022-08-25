@@ -5,8 +5,14 @@ import { Button, PageHeader, Avatar, Image } from "antd";
 import { FaPlane } from "react-icons/fa";
 
 import s from "./style.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { sendLoginRequest } from "../../state/user";
 
-export default function Header({ user, handleLoginClick }) {
+export default function Header() {
+  const user = useSelector((state) => state.user.value);
+
+  const dispatch = useDispatch();
+
   return (
     <header>
       <PageHeader
@@ -21,7 +27,7 @@ export default function Header({ user, handleLoginClick }) {
           <Avatar src={<Image src={user.img} />} />
         </div>
       ) : (
-        <Button type="primary" size="large" onClick={handleLoginClick}>
+        <Button type="primary" size="large" onClick={() => dispatch(sendLoginRequest())}>
           Login
         </Button>
       )}

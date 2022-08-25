@@ -1,11 +1,17 @@
 import * as React from "react";
 
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromFavorite } from "../../state/user";
+
 import { FaStar } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
 import s from "./style.module.scss";
 
-function Item({ flight, removeFromFavorite }) {
+function Item({ flight }) {
+  const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
   const { id, origin, destination } = flight;
   return (
     <div key={id} className={s.favorite}>
@@ -17,7 +23,7 @@ function Item({ flight, removeFromFavorite }) {
       </span>
       <FaTrash
         style={{ cursor: "pointer" }}
-        onClick={() => removeFromFavorite(flight)}
+        onClick={() => dispatch(removeFromFavorite(user, flight))}
       />
     </div>
   );
